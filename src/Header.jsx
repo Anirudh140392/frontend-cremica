@@ -98,7 +98,7 @@ const Header = () => {
               {showSelectedOperator}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu className="custom-dropdown-menu">
               {/* <OperatorList
                                 showSelectedOperator={showSelectedOperator}
                                 setShowSelectedOperator={setShowSelectedOperator}
@@ -120,11 +120,6 @@ const Header = () => {
                 showSelectedOperator={showSelectedOperator}
                 setShowSelectedOperator={setShowSelectedOperator}
                 selectedOperator={OPERATOR.SWIGGY}
-              />
-              <OperatorList
-                showSelectedOperator={showSelectedOperator}
-                setShowSelectedOperator={setShowSelectedOperator}
-                selectedOperator={OPERATOR.ZEPTO}
               />
             </Dropdown.Menu>
           </Dropdown>
