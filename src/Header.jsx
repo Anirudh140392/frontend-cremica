@@ -45,7 +45,7 @@ const Header = () => {
     setShowSelectedOperator(operatorType);
   }, [location.search]);
 
-  const options = [{ label: "Godrej", value: "Godrej" }];
+  const options = [{ label: "Cremica", value: "Cremica" }];
 
   const onHamburgerClick = () => {
     let sideNavMain = document.getElementsByClassName(
