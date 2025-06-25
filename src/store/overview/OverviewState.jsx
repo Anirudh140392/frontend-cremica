@@ -11,8 +11,8 @@ const OverviewState = (props) => {
 
     const [dateRange, setDateRange] = useState([
         {
-            startDate: new Date(2025, 2, 1),
-            endDate: new Date(2025, 2, 7),   
+            startDate: subDays(new Date(), 7),
+            endDate: subDays(new Date(), 1),
             key: "selection",
         },
     ]);
@@ -42,7 +42,7 @@ const OverviewState = (props) => {
         const endDate = formatDate(dateRange[0].endDate);
 
         try {
-            const response = await fetch(`${host}/app/${endpoint}?start_date=${startDate}&end_date=${endDate}&platform=${operator}`, {
+            const response = await fetch(`${host}/cremica/${endpoint}?start_date=${startDate}&end_date=${endDate}&platform=${operator}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const OverviewState = (props) => {
         }
 
         try {
-            const response = await fetch(`${host}/app/brand-name?platform=${operator}`, {
+            const response = await fetch(`${host}/cremica/brand-name?platform=${operator}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

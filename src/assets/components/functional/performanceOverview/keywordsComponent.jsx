@@ -50,7 +50,7 @@ const KeywordsComponent = () => {
         const endDate = formatDate(dateRange[0].endDate);
 
         try {
-            const response = await fetch(`https://react-api-script.onrender.com/app/keyword?start_date=${startDate}&end_date=${endDate}&platform=${operator}&campaign_name=${campaignName}`, {
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/keywords?start_date=${startDate}&end_date=${endDate}&platform=${operator}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -505,19 +505,6 @@ const KeywordsComponent = () => {
             headerName: "DIRECT ROAS % CHANGE",
         },
         {
-            field: "atc",
-            headerName: "ATC",
-            minWidth: 150,
-            renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.atc} percentValue={params.row.atc_change} />
-            ), type: "number", align: "left",
-            headerAlign: "left",
-        },
-        {
-            field: "atc_change",
-            headerName: "ATC % CHANGE",
-        },
-        {
             field: "cvr",
             headerName: "CVR",
             minWidth: 150,
@@ -532,7 +519,7 @@ const KeywordsComponent = () => {
         },
         { field: "match_type", headerName: "MATCH TYPE", minWidth: 150, },
         {
-            field: "ad_type", headerName: "AD TYPE", minWidth: 150,
+            field: "keyword_type", headerName: "AD TYPE", minWidth: 150,
         },
         {
             field: "campaign_name",
@@ -560,7 +547,7 @@ const KeywordsComponent = () => {
                 keyword: keywordName,
                 start_date: formatDate(startDate),
             });
-            const response = await fetch(`https://react-api-script.onrender.com/app/keyword-graph?${params.toString()}`, {
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/keyword-graph?${params.toString()}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

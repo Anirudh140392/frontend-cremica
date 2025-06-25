@@ -4,6 +4,7 @@ export const OPERATOR = {
     BLINKIT: 'Blinkit',
     MYNTRA: 'Myntra',
     SWIGGY: 'Swiggy',
+    ZEPTO: 'Zepto',
 }
 
 export const PERFORMANCETABS = {

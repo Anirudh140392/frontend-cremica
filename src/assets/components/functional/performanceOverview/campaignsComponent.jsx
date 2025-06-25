@@ -341,10 +341,10 @@ const CampaignsComponent = () => {
             ),
         },
         {
-            field: "daily_budget",
+            field: "smart_daily_budget",
             headerName: "BUDGET",
             minWidth: 200,
-            renderCell: (params) => <BudgetCell value={params.row.daily_budget} campaignId={params.row.campaign_id} endDate={params.row.end_date || null} platform={operator}
+            renderCell: (params) => <BudgetCell value={params.row.smart_daily_budget} campaignId={params.row.campaign_id} endDate={params.row.end_date || null} platform={operator}
                 onUpdate={(campaignId, newBudget) => {
                     console.log("Updating campaign:", campaignId, "New budget:", newBudget);
                     setCampaignsData(prevData => {
@@ -352,7 +352,7 @@ const CampaignsComponent = () => {
                             ...prevData,
                             data: prevData.data.map(campaign =>
                                 campaign.campaign_id === campaignId
-                                    ? { ...campaign, daily_budget: newBudget }
+                                    ? { ...campaign, smart_daily_budget: newBudget }
                                     : campaign
                             )
                         };
@@ -398,16 +398,16 @@ const CampaignsComponent = () => {
             headerName: "SPENDS % CHANGE",
         },
         {
-            field: "revenue",
+            field: "sales",
             headerName: "DIRECT SALES",
             minWidth: 150,
             renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.revenue} percentValue={params.row.revenue_change} />
+                <ColumnPercentageDataComponent mainValue={params.row.sales} percentValue={params.row.sales_change} />
             ), type: "number", align: "left",
             headerAlign: "left",
         },
         {
-            field: "revenue_change",
+            field: "sales_change",
             headerName: "DIRECT SALES % CHANGE",
         },
         {
@@ -435,19 +435,6 @@ const CampaignsComponent = () => {
         {
             field: "cvr_change",
             headerName: "ATC RATE % CHANGE",
-        },
-        {
-            field: "atc",
-            headerName: " ATC",
-            minWidth: 150,
-            renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.atc} percentValue={params.row.atc_change} />
-            ), type: "number", align: "left",
-            headerAlign: "left",
-        },
-        {
-            field: "atc_change",
-            headerName: " ATC % CHANGE",
         },
         {
             field: "clicks",
@@ -540,7 +527,7 @@ const CampaignsComponent = () => {
         const endDate = formatDate(dateRange[0].endDate);
 
         try {
-            const response = await fetch(`https://react-api-script.onrender.com/app/campaign?start_date=${startDate}&end_date=${endDate}&platform=${operator}`, {
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/campaign?start_date=${startDate}&end_date=${endDate}&platform=${operator}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -598,7 +585,7 @@ const CampaignsComponent = () => {
             const token = localStorage.getItem("accessToken");
             const startDate = formatDate(dateRange[0].startDate);
             const endDate = formatDate(dateRange[0].endDate);
-            const response = await fetch(`https://react-api-script.onrender.com/app/campaign-graph?end_date=${formatDate(endDate)}&platform=${operator}&campaign_id=${campaignId}&&start_date=${formatDate(startDate)}`, {
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/campaign-graph?end_date=${formatDate(endDate)}&platform=${operator}&campaign_id=${campaignId}&&start_date=${formatDate(startDate)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

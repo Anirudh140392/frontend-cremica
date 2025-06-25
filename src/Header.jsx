@@ -121,6 +121,10 @@ const Header = () => {
                 setShowSelectedOperator={setShowSelectedOperator}
                 selectedOperator={OPERATOR.SWIGGY}
               />
+              <OperatorList
+                showSelectedOperator={showSelectedOperator}
+                setShowSelectedOperator={setShowSelectedOperator}
+                selectedOperator={OPERATOR.ZEPTO} />
             </Dropdown.Menu>
           </Dropdown>
           <SelectFieldComponent
@@ -144,7 +148,7 @@ const Header = () => {
                 )}`}
               </Button>
             </Box>
-            {false && (
+            {showDatePicker && (
               <Box className="date-range-container">
                 <CustomDateRangePicker />
               </Box>

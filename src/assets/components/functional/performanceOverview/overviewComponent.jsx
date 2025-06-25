@@ -30,6 +30,29 @@ const OverviewComponent = () => {
         { field: "roas_x", headerName: "ROAS", type: "number", minWidth: 200, align: "left", headerAlign: "left" }
     ]
 
+    const OverviewColumnsZepto = [
+        { field: "category", headerName: "Category", minWidth: 200 },
+        { field: "total_spend", headerName: "Budget Consumed", minWidth: 200 },
+        { field: "total_sales", headerName: "Total Sales", minWidth: 200 },
+        {
+            field: "total_impressions", headerName: "Impressions", minWidth: 200, type: "number", align: "left",
+            headerAlign: "left",
+        },
+        { field: "avg_cpm", headerName: "CPM", type: "number", minWidth: 200, align: "left", headerAlign: "left" },
+        { field: "avg_roas", headerName: "ROAS", type: "number", minWidth: 200, align: "left", headerAlign: "left" }
+    ]
+
+    const getColumns = () => {
+        switch (operator) {
+            case "Blinkit":
+                return OverviewColumnsBlinkit
+            case "Zepto":
+                return OverviewColumnsZepto
+            default:
+                OverviewColumnsBlinkit
+        }
+    }
+
     useEffect(() => {
         if (localStorage.getItem("accessToken")) {
             getOverviewData();
@@ -125,7 +148,7 @@ const OverviewComponent = () => {
                             <div className="datatable-con-overview">
                                 <MuiDataTableComponent
                                     isExport={true}
-                                    columns={OverviewColumnsBlinkit}
+                                    columns={getColumns()}
                                     data={overviewData?.cat_table} />
                             </div>
                         </div>
