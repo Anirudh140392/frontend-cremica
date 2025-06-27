@@ -138,7 +138,14 @@ const MuiDataTableComponent = (props) => {
                         orders_change: false,
                         cpm_change: false,
                         acos_diff: false,
-                        sales_change:false
+                        sales_change:false,
+                        sov_diff:false,
+                        cpatc_diff:false,
+                        spends_change:false,
+                        direct_revenue_change:false,
+                        ctr_change:false,
+                        troas_change:false,
+                        roas_direct_change:false
                     }}
                 />
             )}

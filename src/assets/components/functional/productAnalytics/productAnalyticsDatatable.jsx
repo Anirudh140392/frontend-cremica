@@ -1,22 +1,23 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
 import MuiDataTableComponent from "../../common/muidatatableComponent";
 import '../../../styles/keywordsComponent/keywordsComponent.less';
-import { Typography } from "@mui/material";
+import { Typography, Snackbar, Alert } from "@mui/material";
 import overviewContext from "../../../../store/overview/overviewContext";
 import { useSearchParams } from "react-router";
 import ColumnPercentageDataComponent from "../../common/columnPercentageDataComponent";
 
-const SearchTermInsightsDatatable = () => {
+const ProductAnalyticsDatatable = () => {
 
     const { dateRange, formatDate } = useContext(overviewContext)
 
-    const [keywordAnalysisData, setKeywordAnalysisData] = useState({})
+    const [productAnalyticsData, setProductAnalyticsData] = useState({})
     const [isLoading, setIsLoading] = useState(false)
+    const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
     const [searchParams] = useSearchParams();
     const operator = searchParams.get("operator");
 
-    const getKeywordAnalysisData = async () => {
+    const getProductAnalyticsData = async () => {
         if (!operator) return;
 
         if (abortControllerRef.current) {
@@ -26,7 +27,7 @@ const SearchTermInsightsDatatable = () => {
         const controller = new AbortController();
         abortControllerRef.current = controller;
 
-        setKeywordAnalysisData({});
+        setProductAnalyticsData({});
         setIsLoading(true);
 
         const token = localStorage.getItem("accessToken");
@@ -40,7 +41,7 @@ const SearchTermInsightsDatatable = () => {
         const endDate = formatDate(dateRange[0].endDate);
 
         try {
-            const response = await fetch(`https://react-api-script.onrender.com/cremica/search-term-analytics?start_date=${startDate}&end_date=${endDate}&platform=${operator}
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/product-analytics?platform=${operator}&start_date=${startDate}&end_date=${endDate}
             `, {
                 method: "GET",
                 headers: {
@@ -55,13 +56,13 @@ const SearchTermInsightsDatatable = () => {
             }
 
             const data = await response.json();
-            setKeywordAnalysisData(data);
+            setProductAnalyticsData(data);
         } catch (error) {
             if (error.name === "AbortError") {
                 console.log("Previous request aborted due to operator change.");
             } else {
-                console.error("Failed to fetch keyword analysis data:", error.message);
-                setKeywordAnalysisData({});
+                console.error("Failed to fetch product analytics data:", error.message);
+                setProductAnalyticsData({});
             }
         } finally {
             setIsLoading(false);
@@ -72,7 +73,7 @@ const SearchTermInsightsDatatable = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            getKeywordAnalysisData();
+            getProductAnalyticsData();
         }, 100);
 
         return () => {
@@ -83,146 +84,116 @@ const SearchTermInsightsDatatable = () => {
         }
     }, [operator, dateRange]);
 
-    const KeywordAnalysisColumnBlinkit = [
+    const ProductAnalyticsColumnFlipkart = [
         {
-            field: "targeting_value",
-            headerName: "SEARCH TERM",
+            field: "product_name",
+            headerName: "PRODUCT",
             minWidth: 150,
             renderCell: (params) => (
                 <div className="text-icon-div">
-                    <Typography variant="body2">{params.row.targeting_value}</Typography>
+                    <Typography variant="body2">{params.row.product_name}</Typography>
                 </div>
             ),
         },
-        { field: "campaigns_count", headerName: "# CAMPAIGNS", minWidth: 150 },
-        { field: "is_exact", headerName: "IS EXACT", minWidth: 100 },
         {
-            field: "sov",
-            headerName: "SOV",
-            minWidth: 150,
-            renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.sov} percentValue={params.row.sov_diff} />
-            ), type: "number", align: "left",
-            headerAlign: "left",
-        },
-        {
-            field: "sov_diff",
-            headerName: "SOV % CHANGE",
-            hideable: false
-        },
-        {
-            field: "impressions",
-            headerName: "IMPRESSIONS",
-            minWidth: 200,
-            renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.impressions} percentValue={params.row.impressions_diff} />
-            ), type: "number", align: "left",
-            headerAlign: "left",
-        },
-        {
-            field: "impressions_diff",
-            headerName: "IMPRESSIONS % CHANGE",
-            hideable: false
-        },
-        {
-            field: "estimated_budget_consumed",
+            field: "spends",
             headerName: "SPENDS",
             minWidth: 200,
             renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.estimated_budget_consumed} percentValue={params.row.estimated_budget_consumed_diff} />
+                <ColumnPercentageDataComponent mainValue={params.row.spends} percentValue={params.row.spends_change} />
             ), type: "number", align: "left",
             headerAlign: "left",
         },
         {
-            field: "estimated_budget_consumed_diff",
+            field: "spends_change",
             headerName: "SPENDS % CHANGE",
             hideable: false
         },
         {
-            field: "direct_sales",
+            field: "direct_revenue",
             headerName: "SALES",
             minWidth: 200,
             renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.direct_sales} percentValue={params.row.direct_sales_diff} />
+                <ColumnPercentageDataComponent mainValue={params.row.direct_revenue} percentValue={params.row.direct_revenue_change} />
             ), type: "number", align: "left",
             headerAlign: "left",
         },
         {
-            field: "direct_sales_diff",
+            field: "direct_revenue_change",
             headerName: "SALES % CHANGE",
             hideable: false
         },
         {
-            field: "cpatc",
-            headerName: "CPATC",
+            field: "ctr",
+            headerName: "CTR",
             minWidth: 150,
             renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.cpatc} percentValue={params.row.cpatc_diff} />
+                <ColumnPercentageDataComponent mainValue={params.row.ctr} percentValue={params.row.ctr_change} />
             ), type: "number", align: "left",
             headerAlign: "left",
         },
         {
-            field: "cpatc_diff",
-            headerName: "CPATC % CHANGE",
+            field: "ctr_change",
+            headerName: "CTR % CHANGE",
             hideable: false
         },
         {
-            field: "CPM_x",
-            headerName: "CPM",
+            field: "troas",
+            headerName: "TROAS",
             minWidth: 150,
             renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.CPM_x} percentValue={params.row.cpm_diff} />
+                <ColumnPercentageDataComponent mainValue={params.row.troas} percentValue={params.row.troas_change} />
             ), type: "number", align: "left",
             headerAlign: "left",
         },
         {
-            field: "cpm_diff",
-            headerName: "CPM % CHANGE",
+            field: "troas_change",
+            headerName: "TROAS % CHANGE",
             hideable: false
         },
         {
-            field: "total_sales",
-            headerName: "TOTAL AD SALES",
-            minWidth: 150,
-            renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.total_sales} percentValue={params.row.total_sales_diff} />
-            ), type: "number", align: "left",
-            headerAlign: "left",
-        },
-        {
-            field: "total_sales_diff",
-            headerName: "TOTAL AD SALES % CHANGE",
-            hideable: false
-        },
-        {
-            field: "roas",
+            field: "roas_direct",
             headerName: "ROAS",
             minWidth: 150,
             renderCell: (params) => (
-                <ColumnPercentageDataComponent mainValue={params.row.roas} percentValue={params.row.roas_diff} />
+                <ColumnPercentageDataComponent mainValue={params.row.roas_direct} percentValue={params.row.roas_direct_change} />
             ), type: "number", align: "left",
             headerAlign: "left",
         },
         {
-            field: "roas_diff",
+            field: "roas_direct_change",
             headerName: "ROAS % CHANGE",
             hideable: false
         },
     ];
 
+    const handleSnackbarOpen = (message, severity) => {
+        setSnackbar({ open: true, message, severity });
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbar({ ...snackbar, open: false });
+    };
+
     return (
         <React.Fragment>
             <div className="shadow-box-con-keywords aggregated-view-con">
-                <div className="datatable-con-sov">
+                <div className="datatable-con-product-analytics">
                     <MuiDataTableComponent
                         isLoading={isLoading}
                         isExport={true}
-                        columns={KeywordAnalysisColumnBlinkit}
-                        data={keywordAnalysisData.data || []} />
+                        columns={ProductAnalyticsColumnFlipkart}
+                        data={productAnalyticsData.data || []} />
                 </div>
             </div>
+            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={snackbar.open} autoHideDuration={4000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity={snackbar.severity} variant="filled" sx={{ width: "100%" }}>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
         </React.Fragment>
     )
 }
 
-export default SearchTermInsightsDatatable;
+export default ProductAnalyticsDatatable;

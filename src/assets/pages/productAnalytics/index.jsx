@@ -1,12 +1,11 @@
-
 import React, { useState, useEffect, useContext } from "react";
 import "../../styles/performanceOverview/performanceOverview.less";
 import ErrorBoundary from "../../components/common/erroBoundryComponent";
 import { useLocation } from "react-router";
 import overviewContext from "../../../store/overview/overviewContext";
-import SearchTermInsightsDatatable from "../../components/functional/searchTermInsights/searchTermInsightsDatatable";
+import ProductAnalyticsDatatable from "../../components/functional/productAnalytics/productAnalyticsDatatable";
 
-const SearchTermInsights = () => {
+const ProductAnalyticsComponent = () => {
     const location = useLocation();
     const [operatorName, setoperatorName] = useState("");
     const { dateRange } = useContext(overviewContext) || {
@@ -32,7 +31,7 @@ const SearchTermInsights = () => {
                             </small>
                         </div>
                         <ErrorBoundary>
-                            <SearchTermInsightsDatatable />
+                            <ProductAnalyticsDatatable />
                         </ErrorBoundary>
                     </div>
                 </div>
@@ -41,4 +40,4 @@ const SearchTermInsights = () => {
     );
 };
 
-export default SearchTermInsights;
+export default ProductAnalyticsComponent;

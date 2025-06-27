@@ -334,7 +334,7 @@ const CampaignsComponent = () => {
             minWidth: 200,
             renderCell: (params) => (
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-                    <Box sx={{ cursor: "pointer" }}>
+                    <Box className="redirect" onClick={() => handleCampaignClick(params.row.campaign_name, params.row.campaign_id)} sx={{ cursor: "pointer" }}>
                         {params.row.campaign_name}
                     </Box>
                 </Box>

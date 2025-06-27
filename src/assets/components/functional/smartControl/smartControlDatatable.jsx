@@ -56,7 +56,7 @@ const SmartControlDatatable = () => {
     }
 
     try {
-      const response = await fetch(`https://react-api-script.onrender.com/app/rule?platform=${operator}`, {
+      const response = await fetch(`https://react-api-script.onrender.com/cremica/displayrules?platform=${operator}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -214,7 +214,7 @@ const SmartControlDatatable = () => {
     setUpdatingRuleId(ruleId);
 
     try {
-      const response = await fetch(`https://react-api-script.onrender.com/app/flipkart-play-pause-rule?rule_id=${ruleId}&platform=${operator}`, {
+      const response = await fetch(`https://react-api-script.onrender.com/cremica/play-pause-rule?rule_id=${ruleId}&platform=${operator}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -250,7 +250,7 @@ const SmartControlDatatable = () => {
     setDeletingRuleId(ruleId);
 
     try {
-      const response = await fetch(`https://react-api-script.onrender.com/app/delete-rule?rule_id=${ruleId}&platform=${operator}`, {
+      const response = await fetch(`https://react-api-script.onrender.com/cremica/delete-rule?rule_id=${ruleId}&platform=${operator}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -11,6 +11,8 @@ import Navbar from "./Navbar";
 import Header from "./Header";
 import authContext from "./store/auth/authContext";
 import NegativeKeywordsComponent from "./assets/pages/negativeKeywords";
+import SearchTermInsights from "./assets/pages/searchTermInsights";
+import ProductAnalyticsComponent from "./assets/pages/productAnalytics";
 
 function App() {
   const location = useLocation();
@@ -37,6 +39,8 @@ function App() {
           <Route path="/history" element={isLoggedIn ? <History /> : <Navigate to="/login" />} />
           <Route path="/common-reports" element={isLoggedIn ? <CommonReports /> : <Navigate to="/login" />} />
           <Route path="/negative-keywords" element={isLoggedIn ? <NegativeKeywordsComponent /> : <Navigate to="/login" />} />
+          <Route path="/keyword-analysis" element={isLoggedIn ? <SearchTermInsights /> : <Navigate to="/login" />} />
+          <Route path="/product-analytics" element={isLoggedIn ? <ProductAnalyticsComponent /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>

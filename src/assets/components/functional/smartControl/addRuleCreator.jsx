@@ -71,7 +71,7 @@ const AddRuleCreator = (props) => {
         const accessToken = localStorage.getItem("accessToken");
         console.log(payload, "aman")
         try {
-            const response = await fetch(`https://react-api-script.onrender.com/app/update-rule-api?rule_id=${ruleData.rule_id}&platform=${operator}`, {
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/update-rule?rule_id=${ruleData.rule_id}&platform=${operator}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

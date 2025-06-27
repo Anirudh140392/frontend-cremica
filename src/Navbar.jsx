@@ -47,7 +47,7 @@ const RedirectLink = ({ url, label, pathName, onClick }) => {
                     iconHeight="15"
                     iconColor={pathName === url ? "#fff" : "#78a8df"}
                 />
-            ) : label === "Product Intelligence Center" ? (
+            ) : label === "Product Analytics" ? (
                 <ProductIntelligentCenterIcon
                     iconClass="me-2"
                     iconWidth="15"
@@ -117,7 +117,7 @@ const Navbar = () => {
             abortControllerRef.current.abort();
         }
 
-        if (operatorName !== "Zepto") {
+        if (operatorName === "Zepto") {
             setWalletBalance("N/A");
             return;
         }
@@ -248,7 +248,7 @@ const Navbar = () => {
                                         }
                                     />
                                 )}
-                                {!["Blinkit", "Zepto", "Swiggy"].includes(operatorName) && (
+                                {["Blinkit"].includes(operatorName) && (
                                     <RedirectLink
                                         url={`/keyword-analysis${operatorTypeParams === ""
                                             ? `?operator=${OPERATOR.AMAZON}`
@@ -259,6 +259,24 @@ const Navbar = () => {
                                         onClick={() =>
                                             setPathName(
                                                 `/keyword-analysis${operatorTypeParams === ""
+                                                    ? `?operator=${OPERATOR.AMAZON}`
+                                                    : operatorTypeParams
+                                                }`
+                                            )
+                                        }
+                                    />
+                                )}
+                                {["Blinkit"].includes(operatorName) && (
+                                    <RedirectLink
+                                        url={`/product-analytics${operatorTypeParams === ""
+                                            ? `?operator=${OPERATOR.AMAZON}`
+                                            : operatorTypeParams
+                                            }`}
+                                        label="Product Analytics"
+                                        pathName={pathName}
+                                        onClick={() =>
+                                            setPathName(
+                                                `/product-analytics${operatorTypeParams === ""
                                                     ? `?operator=${OPERATOR.AMAZON}`
                                                     : operatorTypeParams
                                                 }`
@@ -338,7 +356,7 @@ const Navbar = () => {
                                         }
                                     />
                                 )}
-                                {["Blinkit", "Zepto", "Swiggy"].includes(operatorName) && (
+                                {!["Blinkit", "Zepto", "Swiggy"].includes(operatorName) && (
                                     <RedirectLink
                                         url={`/common-reports${operatorTypeParams === ""
                                             ? `?operator=${OPERATOR.AMAZON}`
