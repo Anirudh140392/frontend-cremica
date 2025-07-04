@@ -46,7 +46,7 @@ const NegativeKeywordsDatatable = () => {
         const endDate = formatDate(dateRange[0].endDate);
 
         try {
-            const response = await fetch(`https://react-api-script.onrender.com/app/negativeKeyword?platform=${operator}&start_date=${startDate}&end_date=${endDate}`, {
+            const response = await fetch(`https://react-api-script.onrender.com/cremica/suggested-negative-keyword?platform=${operator}&start_date=${startDate}&end_date=${endDate}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
